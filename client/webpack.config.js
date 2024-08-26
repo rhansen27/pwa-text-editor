@@ -23,16 +23,18 @@ module.exports = () => {
         title: "Text Editor",
       }),
 
+      // Injects our custom service worker
       new InjectManifest({
         swSrc: "./src-sw.js",
         swDest: "src-sw.js",
       }),
 
+      // Creates a manifest.json file.
       new WebpackPwaManifest({
         fingerprints: false,
         inject: true,
         name: "Text Editor",
-        short_name: "editor",
+        short_name: "Editor",
         description: "Edit your code!",
         background_color: "#225ca3",
         theme_color: "#225ca3",
@@ -55,8 +57,9 @@ module.exports = () => {
           use: ["style-loader", "css-loader"],
         },
         {
-          test: /\.js$/,
+          test: /\.m?js$/,
           exclude: /node_modules/,
+          // We use babel-loader in order to use ES6.
           use: {
             loader: "babel-loader",
             options: {
